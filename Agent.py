@@ -21,7 +21,6 @@ class BaseAgent:
     def select_action(self, s, policy='egreedy', epsilon=None, temp=None):
         
         if policy == 'greedy':
-            # TO DO: Add own code
             a = argmax(self.Q_sa[s])
             
         elif policy == 'egreedy':
@@ -32,9 +31,6 @@ class BaseAgent:
                 a = np.random.randint(0, self.n_actions)
             else:
                 a = argmax(self.Q_sa[s])
-                
-            # TO DO: Add own code
-            a = np.random.randint(0,self.n_actions) # Replace this with correct action selection
                  
         elif policy == 'softmax':
             if temp is None:
