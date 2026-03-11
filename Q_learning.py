@@ -13,18 +13,17 @@ from Agent import BaseAgent
 class QLearningAgent(BaseAgent):
         
     def update(self,s,a,r,s_next,done):
-        # TO DO: Add own code
         if done:
             target = r
         else:
-            target = r + self.gamma *np.max(self.Q_sa[s_next])
+            target = r + self.gamma * np.max(self.Q_sa[s_next])
         
         self.Q_sa[s,a] = self.Q_sa[s,a] + self.learning_rate * (target - self.Q_sa[s,a])
 
 
 def q_learning(n_timesteps, learning_rate, gamma, policy='egreedy', epsilon=None, temp=None, plot=True, eval_interval=500):
-    ''' runs a single repetition of q_learning
-    Return: rewards, a vector with the observed rewards at each timestep ''' 
+    """ runs a single repetition of q_learning
+    Return: rewards, a vector with the observed rewards at each timestep """
     
     env = StochasticWindyGridworld(initialize_model=False)
     eval_env = StochasticWindyGridworld(initialize_model=False)
@@ -47,7 +46,7 @@ def q_learning(n_timesteps, learning_rate, gamma, policy='egreedy', epsilon=None
             eval_returns.append(mean_return)            
        
         if plot:
-            env.render(Q_sa=agent.Q_sa, plot_optimal_policy=True, step_pause=0.1)
+            env.render(Q_sa=agent.Q_sa, plot_optimal_policy=True, step_pause=0.01)
             
         if done:
             s = env.reset()
@@ -64,7 +63,9 @@ def test():
     learning_rate = 0.1
 
     # Exploration
-    policy = 'egreedy' # 'egreedy' or 'softmax' 
+    policy = 'egreedy'
+    # policy = 'softmax'
+    # policy = 'greedy'
     epsilon = 0.1
     temp = 1.0
     

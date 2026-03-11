@@ -36,10 +36,12 @@ class BaseAgent:
             if temp is None:
                 raise KeyError("Provide a temperature")
             
-            # TO DO: Add own code
             q_values = self.Q_sa[s]
             probabilities = softmax(q_values, temp)
             a = np.random.choice(self.n_actions, p=probabilities)
+
+        else:
+            raise KeyError("Unknown policy")
               
         return a
         

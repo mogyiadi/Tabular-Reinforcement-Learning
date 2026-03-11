@@ -64,25 +64,27 @@ def experiment():
     env = StochasticWindyGridworld(initialize_model=True)
     env.render()
     QIagent = Q_value_iteration(env, gamma, threshold)
-    time.sleep(60)
+    # time.sleep(5)
 
     # view optimal policy
     done = False
     s = env.reset()
     sum_rewards = 0
-    timestep = 0
+    step = 0
     while not done:
         a = QIagent.select_action(s)
         s_next, r, done = env.step(a)
         env.render(Q_sa=QIagent.Q_sa, plot_optimal_policy=True, step_pause=0.5)
         s = s_next
         sum_rewards += r
-        timestep += 1
+        step += 1
 
-    mean_reward_per_timestep = sum_rewards / timestep
+    mean_reward_per_timestep = sum_rewards / step
 
     # TO DO: Compute mean reward per timestep under the optimal policy
     print("Mean reward per timestep under optimal policy: {}".format(mean_reward_per_timestep))
+    print("Number of steps it took: ", step)
+    print("Sum Reward: ", sum_rewards)
 
 
 if __name__ == '__main__':
